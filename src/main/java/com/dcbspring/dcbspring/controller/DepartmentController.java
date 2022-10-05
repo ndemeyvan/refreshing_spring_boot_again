@@ -37,7 +37,6 @@ public class DepartmentController {
     @GetMapping
     public List<DepartmentEntity> getListOfDepartment() {
         LOGGER.info("Inside getListOfDepartment controller of DepartmentController ");
-
         return departmentServiceImpl.getAllDepartment();
     }
 
@@ -50,15 +49,13 @@ public class DepartmentController {
     @GetMapping("name/{name}")
     public DepartmentEntity getDepartmentByName(@PathVariable("name") String departmentName) {
         LOGGER.info("Inside getDepartmentByName controller of DepartmentController ");
-
         return departmentServiceImpl.getDepartmentByName(departmentName);
     }
 
     @PutMapping("/{id}")
     public DepartmentEntity updateDepartmentById(@PathVariable("id") Long departmentId,
-            @RequestBody DepartmentEntity departementEntity) {
+            @RequestBody DepartmentEntity departementEntity) throws DepartmentNotFoundException {
         LOGGER.info("Inside updateDepartmentById controller of DepartmentController ");
-
         return departmentServiceImpl.updateDepartmentById(departmentId, departementEntity);
     }
 

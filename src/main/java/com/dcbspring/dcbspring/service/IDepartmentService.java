@@ -10,6 +10,6 @@ public interface IDepartmentService {
     DepartmentEntity createDepartmentEntity(DepartmentEntity departementEntity);
     DepartmentEntity getDepartmentById(Long departmentId) throws DepartmentNotFoundException;
     DepartmentEntity getDepartmentByName(String departmentName);
-    DepartmentEntity updateDepartmentById(Long departmentId,DepartmentEntity departementEntity);
+    DepartmentEntity updateDepartmentById(Long departmentId,DepartmentEntity departementEntity) throws DepartmentNotFoundException;
     void deleteDepartmentById(Long departmentId);
 }

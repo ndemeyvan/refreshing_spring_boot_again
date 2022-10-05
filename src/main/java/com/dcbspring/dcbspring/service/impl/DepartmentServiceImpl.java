@@ -28,7 +28,7 @@ public class DepartmentServiceImpl implements IDepartmentService {
     }
 
     @Override
-    public DepartmentEntity getDepartmentById(Long departmentId) throws DepartmentNotFoundException  {
+    public DepartmentEntity getDepartmentById(Long departmentId) throws DepartmentNotFoundException {
         // .get() Because this deparment it's
         Optional<DepartmentEntity> department = departmentRepository.findById(departmentId);
         if (!department.isPresent()) {
@@ -44,9 +44,16 @@ public class DepartmentServiceImpl implements IDepartmentService {
     }
 
     @Override
-    public DepartmentEntity updateDepartmentById(Long departmentId, DepartmentEntity departementEntity) {
+    public DepartmentEntity updateDepartmentById(Long departmentId, DepartmentEntity departementEntity)
+            throws DepartmentNotFoundException {
         // find the current departement
-        DepartmentEntity dbDepartement = departmentRepository.findById(departmentId).get();
+        Optional<DepartmentEntity> departement = departmentRepository.findById(departmentId);
+
+        if (!departement.isPresent()) {
+            throw new DepartmentNotFoundException("Department not available !!! ");
+        }
+        
+        DepartmentEntity dbDepartement = departement.get();
 
         if (Objects.nonNull(departementEntity.getDepartmentName())
                 && !"".equalsIgnoreCase(departementEntity.getDepartmentName())) {
