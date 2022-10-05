@@ -7,7 +7,16 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity(name = "departments")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DepartmentEntity {
 
     @Id
@@ -16,64 +25,16 @@ public class DepartmentEntity {
 
     @NotBlank(message = "Please add department name")
     @NotEmpty(message = "Please add department name")
+    @Length(min = 3)
     private String departmentName;
 
+    @NotBlank(message = "Please add department adress")
+    @NotEmpty(message = "Please add department adress")
     private String departmentAddress;
 
+    @NotBlank(message = "Please add department code")
+    @NotEmpty(message = "Please add department code")
     private String departmentCode;
 
-    public DepartmentEntity(Long departmentId, String departmentName, String departmentAddress, String departmentCode) {
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
-        this.departmentAddress = departmentAddress;
-        this.departmentCode = departmentCode;
-    }
-
-
-    public DepartmentEntity() {
-    }
-
-
-    public Long getdepartmentId() {
-        return this.departmentId;
-    }
-
-    public void setdepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
-    }
-
-    public String getdepartmentName() {
-        return this.departmentName;
-    }
-
-    public void setdepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
-    public String getdepartmentAddress() {
-        return this.departmentAddress;
-    }
-
-    public void setdepartmentAddress(String departmentAddress) {
-        this.departmentAddress = departmentAddress;
-    }
-
-    public String getdepartmentCode() {
-        return this.departmentCode;
-    }
-
-    public void setdepartmentCode(String departmentCode) {
-        this.departmentCode = departmentCode;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " departmentId='" + departmentId + "'" +
-                ", departmentName='" + departmentName + "'" +
-                ", departmentAddress='" + departmentAddress + "'" +
-                ", departmentCode='" + departmentCode + "'" +
-                "}";
-    }
-
+    
 }

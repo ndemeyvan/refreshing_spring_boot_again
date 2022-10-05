@@ -5,11 +5,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import com.dcbspring.dcbspring.entities.DepartmentEntity;
+import com.dcbspring.dcbspring.errors.DepartmentNotFoundException;
 import com.dcbspring.dcbspring.repository.IDepartmentRepository;
 import com.dcbspring.dcbspring.service.IDepartmentService;
 
@@ -30,11 +28,11 @@ public class DepartmentServiceImpl implements IDepartmentService {
     }
 
     @Override
-    public DepartmentEntity getDepartmentById(Long departmentId) {
+    public DepartmentEntity getDepartmentById(Long departmentId) throws DepartmentNotFoundException  {
         // .get() Because this deparment it's
         Optional<DepartmentEntity> department = departmentRepository.findById(departmentId);
-        if (department.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,String.format("User with id %d not found", departmentId));
+        if (!department.isPresent()) {
+            throw new DepartmentNotFoundException("Department not available !!! ");
         }
         // return departmentRepository.findById(departmentId).orElse(null);
         return department.get();
@@ -50,19 +48,19 @@ public class DepartmentServiceImpl implements IDepartmentService {
         // find the current departement
         DepartmentEntity dbDepartement = departmentRepository.findById(departmentId).get();
 
-        if (Objects.nonNull(departementEntity.getdepartmentName())
-                && !"".equalsIgnoreCase(departementEntity.getdepartmentName())) {
-            dbDepartement.setdepartmentName(departementEntity.getdepartmentName());
+        if (Objects.nonNull(departementEntity.getDepartmentName())
+                && !"".equalsIgnoreCase(departementEntity.getDepartmentName())) {
+            dbDepartement.setDepartmentName(departementEntity.getDepartmentName());
         }
 
-        if (Objects.nonNull(departementEntity.getdepartmentAddress())
-                && !"".equalsIgnoreCase(departementEntity.getdepartmentAddress())) {
-            dbDepartement.setdepartmentAddress(departementEntity.getdepartmentAddress());
+        if (Objects.nonNull(departementEntity.getDepartmentAddress())
+                && !"".equalsIgnoreCase(departementEntity.getDepartmentAddress())) {
+            dbDepartement.setDepartmentAddress(departementEntity.getDepartmentAddress());
         }
 
-        if (Objects.nonNull(departementEntity.getdepartmentCode())
-                && !"".equalsIgnoreCase(departementEntity.getdepartmentCode())) {
-            dbDepartement.setdepartmentCode(departementEntity.getdepartmentCode());
+        if (Objects.nonNull(departementEntity.getDepartmentCode())
+                && !"".equalsIgnoreCase(departementEntity.getDepartmentCode())) {
+            dbDepartement.setDepartmentCode(departementEntity.getDepartmentCode());
         }
 
         return departmentRepository.save(dbDepartement);
